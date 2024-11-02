@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Feed</title>
+  <link rel="icon" type="image/png" href="https://i.ibb.co/sj484q8/Feed.webp">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* 기본 스타일은 모바일 레이아웃으로 설정 */
+body {
+  font-family: 'Pretendard', sans-serif;
+  line-height: 1.6;
+  margin: 20px;
+  background-color: #2272eb;
+  color: #010101;
+}
+.header {
+  font-weight: 700;
+  font-size: 1.5em;
+  text-align: right;
+  margin-top: -12px;
+  color: #fff;
+}
+.main-title {
+  text-align: left;
+  font-size: 2.93em;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  font-weight: 800;
+  color: #ffffff; /* 흰색 */
+}
+.author {
+  font-size: 1.2em;
+  font-weight: 600;
+  text-align: right;
+  color: #ffffff; /* 흰색 */
+}
+h2 {
+  font-size: 1.8em;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  text-align: left;
+}
+.subtitle {
+  font-size: 13.9px; /* 수정된 값 적용 */
+  text-align: center;
+  font-weight: 500;
+  color: #010101;
+}
+.content {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f2f2f7;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  text-align: left;
+}
+.content p {
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+.footer {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px; /* 아래 여백 추가 */
+  color: #ffffff;
+}
+.footer a {
+  margin: 5px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 24px;  
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+.footer-text {
+  font-weight: 600;
+  font-size: 13.9px;
+}
+.image-wrapper {
+  text-align: center; /* 이미지 중앙 정렬 */
+  margin-bottom: 20px; /* 이미지와 텍스트 간격 조정 */
+}
+.image-wrapper img {
+  max-width: 100%; /* 이미지가 부모 요소에 맞춰 최대 너비 지정 */
+  border-radius: 8px; /* 이미지 모서리 둥글게 처리 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 이미지 그림자 효과 */
+}
+
+/* 730px 이상 화면에서의 스타일 설정 */
+@media (min-width: 731px) {
+  body {
+    margin: 0 auto; /* 모든 콘텐츠를 중앙에 정렬 */
+    max-width: 730px; /* 최대 너비 제한 수정 */
+    background-color: #2272eb; /* 배경색은 유지 */
+    padding: 20px; /* 여백 추가 */
+  }
+  .header {
+    font-size: 1.5em;
+    text-align: right;
+    margin-top: -12px;
+  }
+  .main-title {
+    text-align: left;
+    font-size: 2.93em;
+    margin-bottom: 10px;
+    margin-top: 5px;
+  }
+  .author {
+    font-size: 1.2em;
+    text-align: right;
+  }
+  h2 {
+    font-size: 1.8em;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  .subtitle {
+    font-size: 13.9px;
+    text-align: center;
+  }
+  .content {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f2f2f7;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .content p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+  }
+  .footer {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px; /* 아래 여백 추가 */
+  }
+  .footer a {
+    margin: 5px;
+    font-size: 24px;
+  }
+  .footer-text {
+    font-size: 13.9px;
+  }
+  .image-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .image-wrapper img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 730px 이상에서는 추가적인 스타일 적용 필요 없음 */
+}
+
+/* 385px 이하 화면에서의 스타일 설정 */
+@media (max-width: 385px) {
+  body {
+    margin: 0 auto; /* 모든 콘텐츠를 중앙에 정렬 */
+    padding: 15px; /* 여백 추가 */
+    background-color: #2272eb; /* 배경색은 유지 */
+  }
+  .header {
+    font-size: 1.2em;
+    text-align: center;
+    margin-top: 0;
+  }
+  .main-title {
+    font-size: 2em;
+    text-align: center;
+  }
+  .author {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: 1.5em;
+    text-align: left;
+  }
+  .subtitle {
+    font-size: 12px;
+    text-align: center;
+  }
+  .content {
+    padding: 15px;
+  }
+  .content p {
+    font-size: 1em;
+  }
+  .footer {
+    margin-bottom: 20px;
+  }
+  .footer a {
+    font-size: 20px;
+  }
+  .footer-text {
+    font-size: 12px;
+  }
+  .image-wrapper img {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+
+
+  </style>
+</head>
+<body>
+  <header class="header">
+    Episode.01
+  </header>
+  <h1 class="main-title">나가자,<br>정보의 바다로.</h1>
+  <div class="author">신지성</div>
+  
+  <div class="content">
+    <div class="image-wrapper">
+      <img src="https://resources-fe.toss.im/image-optimize/width=3840,quality=75/https%3A%2F%2Fstatic.toss.im%2Fillusts%2Fimg-toss-ir-1.jpg" alt="바다, 배">
+    </div>
+    <h2>정보의 바다.</h2>
+    <p>안녕하세요! 정보의 바다에서 저를 발견하고 같이 시간을 보내기로 생각한 여러분.<br>정말 많은 정보, 많은 사람들이 존재하는 정보의 바다에서<br>저를 발견하신 것을 절대 후회하지 않도록 하겠습니다. 감사합니다.</p>
+    
+    <h2>왜 치지직인가?</h2>
+    <p>많은 플랫폼이 존재하는 지금, 저는 치지직에서 방송을 하기로 결정했습니다. 그 이유는 치지직에 제가 좋아하는 스트리머분들이 많은 것과 제가 다양한 게임을 좋아하기 때문입니다. 여러분과 다양한 게임으로 다양한 방송하고 싶습니다.</p>
+    
+       <h2>앞으로의 여정.</h2>
+    <p>해솔이오24는 앞으로 남들이 생각하지 못한 게임, 방송을 바라보는 새로운 관점으로 여러분을 찾아뵐 것입니다.<br>앞으로 여러분들의 생각보다 늘 한걸음 더 나가는 스트리머가 되겠습니다.</p>
+    
+    <h2>감사합니다.</h2>
+    
+    <p class="subtitle">2024.11.02.</p>
+    
+  </div>
+
+  <!-- 푸터 추가 -->
+  <div class="footer">
+    <a href="https://chzzk.naver.com/c68c3e1788d86ff11740edcd7040a8e8" target="_blank"><img src="https://ssl.pstatic.net/static/nng/glive/icon/favicon.png" alt="Chzzk" style="width: 24px; height: 24px;"></a>
+    <a href="https://jisungeda55.github.io/redirect/YouTube/" target="_blank"><img src="https://www.gstatic.com/youtube/img/branding/favicon/favicon_192x192_v2.png" alt="YouTube" style="width: 24px; height: 24px;"></a>
+    <p class="footer-text">© 2024 HaeSolEyo | All Rights Reserved</p>
+  </div>  
+</body>
+</html>
