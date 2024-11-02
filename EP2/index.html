@@ -10,7 +10,7 @@
   <style>
     /* 기본 스타일은 모바일 레이아웃으로 설정 */
 body {
-  font-family: 'Pretendard', sans-serif;
+  font-family: 'Pretendard';
   line-height: 1.6;
   margin: 20px;
   background-color: #2272eb;
@@ -30,6 +30,24 @@ body {
   margin-top: 5px;
   font-weight: 800;
   color: #ffffff; /* 흰색 */
+}
+.tts-button {
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: white;
+  color: #0d0d0d;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+  font-family: 'Pretendard';
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .author {
   font-size: 1.2em;
@@ -210,10 +228,43 @@ h2 {
     box-shadow: none;
   }
 }
-
-
-
   </style>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // 읽기 버튼 생성
+    const ttsButton = document.createElement('button');
+ttsButton.className = 'tts-button';
+ttsButton.innerHTML = `<svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#2272eb"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="10" cy="6" r="4" stroke="#2272eb" stroke-width="1.5"></circle> <path d="M18 17.5C18 19.9853 18 22 10 22C2 22 2 19.9853 2 17.5C2 15.0147 5.58172 13 10 13C14.4183 13 18 15.0147 18 17.5Z" stroke="#2272eb" stroke-width="1.5"></path> <path d="M19 2C19 2 21 3.2 21 6C21 8.8 19 10 19 10" stroke="#2272eb" stroke-width="1.5" stroke-linecap="round"></path> <path d="M17 4C17 4 18 4.6 18 6C18 7.4 17 8 17 8" stroke="#2272eb" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>`;
+const mainTitle = document.querySelector('.main-title');
+mainTitle.insertAdjacentElement('afterend', ttsButton);
+
+    let isReading = false;
+    let utterance;
+
+    // 버튼 클릭 이벤트
+    ttsButton.addEventListener('click', function () {
+      if (!isReading) {
+        const content = document.querySelector('.content').innerText;
+        utterance = new SpeechSynthesisUtterance(content);
+        utterance.lang = 'ko-KR'; // 한국어로 설정
+        window.speechSynthesis.speak(utterance);
+        ttsButton.innerHTML = `<svg width="212px" height="212px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#eb2222"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.048"></g><g id="SVGRepo_iconCarrier"> <circle cx="10" cy="6" r="4" stroke="#eb2222" stroke-width="1.9200000000000004"></circle> <path d="M18 17.5C18 19.9853 18 22 10 22C2 22 2 19.9853 2 17.5C2 15.0147 5.58172 13 10 13C14.4183 13 18 15.0147 18 17.5Z" stroke="#eb2222" stroke-width="1.9200000000000004"></path> <path d="M19 2C19 2 21 3.2 21 6C21 8.8 19 10 19 10" stroke="#eb2222" stroke-width="1.9200000000000004" stroke-linecap="round"></path> <path d="M17 4C17 4 18 4.6 18 6C18 7.4 17 8 17 8" stroke="#eb2222" stroke-width="1.9200000000000004" stroke-linecap="round"></path> </g></svg>`;
+        isReading = true;
+      } else {
+        window.speechSynthesis.cancel(); // TTS 중지
+        ttsButton.innerHTML = `<svg width="212px" height="212px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#2272eb"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.048"></g><g id="SVGRepo_iconCarrier"> <circle cx="10" cy="6" r="4" stroke="#2272eb" stroke-width="1.9200000000000004"></circle> <path d="M18 17.5C18 19.9853 18 22 10 22C2 22 2 19.9853 2 17.5C2 15.0147 5.58172 13 10 13C14.4183 13 18 15.0147 18 17.5Z" stroke="#2272eb" stroke-width="1.9200000000000004"></path> <path d="M19 2C19 2 21 3.2 21 6C21 8.8 19 10 19 10" stroke="#2272eb" stroke-width="1.9200000000000004" stroke-linecap="round"></path> <path d="M17 4C17 4 18 4.6 18 6C18 7.4 17 8 17 8" stroke="#2272eb" stroke-width="1.9200000000000004" stroke-linecap="round"></path> </g></svg>`;
+        isReading = false;
+      }
+    });
+
+    // 읽기 완료 시 이벤트
+    utterance && utterance.addEventListener('end', function () {
+      ttsButton.innerHTML = `<svg width="212px" height="212px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#2272eb"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.048"></g><g id="SVGRepo_iconCarrier"> <circle cx="10" cy="6" r="4" stroke="#2272eb" stroke-width="1.9200000000000004"></circle> <path d="M18 17.5C18 19.9853 18 22 10 22C2 22 2 19.9853 2 17.5C2 15.0147 5.58172 13 10 13C14.4183 13 18 15.0147 18 17.5Z" stroke="#2272eb" stroke-width="1.9200000000000004"></path> <path d="M19 2C19 2 21 3.2 21 6C21 8.8 19 10 19 10" stroke="#2272eb" stroke-width="1.9200000000000004" stroke-linecap="round"></path> <path d="M17 4C17 4 18 4.6 18 6C18 7.4 17 8 17 8" stroke="#2272eb" stroke-width="1.9200000000000004" stroke-linecap="round"></path> </g></svg>`;
+      isReading = false;
+    });
+  });
+</script>
+
 </head>
 <body>
   <header class="header">
@@ -232,7 +283,7 @@ h2 {
     <p>인천국제공항공사는 연말로 예정된 4단계 확장 공사의 성공적인 완료를 위해 대대적인 시험운영을 진행하고 있어요.<br>인천공항 4단계 확장 공사는 세계 3위의 규모로 거듭나기 위한 계획이에요.<br><br>이번 시험운영은 가상여객 800명과 항공기 2대를 동원하여 실제 운영 상황을 가정해 공항 운영 전반을 종합적으로 점검하는 형태로 진행되었어요.<br>이를 통해 인천국제공항공사는 개장 준비에 미비점이 없는지 꼼꼼히 확인하고 있어요.<br><br>이 날 시험운영을 통해 인천공항은 앞으로 더욱 안전하고 편리한 서비스를 제공할 수 있도록 미비점을 보완해 나갈 계획이예요.<br><br>인천공항 4단계 확장 공사는 지난 2017년부터 약 4.8조 원을 투자해 진행 중인 대규모 프로젝트로, 제2여객터미널 확장과 제4활주로 신설 등을 포함하고 있습니다.<br>이번 확장이 완료되면 연간 여객 수용능력이 기존 7,700만 명에서 1억 600만 명으로 늘어나며, 인천공항은 홍콩과 두바이에 이어 세계 3위의 국제선 수용 규모를 자랑하게 돼요.</p>
     
     <h2>이제 공항 서둘러 갈 필요 없어요!</h2>
-    <p>인천국제공항공사가 인천공항의 안면인식 출국 서비스인 ‘스마트패스’의 사전등록 채널을 확대하기 위해 하나은행(하나원큐), 비바리퍼블리카(토스), KB국민은행(KB스타뱅킹), 신한은행(신한SOL뱅크), 우리은행(우리 WON뱅킹)과 ‘스마트패스 활성화 협약’을 체결했어요.<br><br>스마트패스는 지난해 7월 도입된 안면인식 출국 서비스로, 안면정보를 사전등록하면 출국장, 탑승구 등에서 여권, 탑승권을 꺼내지 않고 안면인식만으로 통과할 수 있어 빠르고 편리한 서비스예요.<br><br>인천공항공사는 이번 협약체결 외에도 외교부 정보연계를 통한 스마트패스 등록절차 간소화를 추진할 계획으로, 연내 절차 간소화가 완료되면 스마트패스 전용 모바일 앱(ICN SmartPass)을 통한 등록절차가 기존대비 훨씬 빠르고 간편해질 전망이에요.<br><br>인천국제공항공사 이학재 사장은 “스마트패스를 이용하면 출국 대기시간이 크게 줄어들고 공항 혼잡완화에도 도움이 되는 만큼 여객 분들의 많은 이용을 부탁드린다”며, “앞으로도 등록채널 확대 및 서비스 개선 등 스마트패스의 이용 편의성을 지속 향상시켜 나가겠다”고 말했어요.</p>
+    <p>인천국제공항공사가 인천공항의 안면인식 출국 서비스인 ‘스마트패스’의 사전등록 채널을 확대하기 위해 하나은행(하나원큐), 비바리퍼블리카(토스), KB국민은행(KB스타뱅킹), 신한은행(신한SOL뱅크), 우리은행(우리 WON뱅킹)과 ‘스마트패스 활성화 협약’을 체결했어요.<br><br>스마트패스는 지난해 7월 도입된 안면인식 출국 서비스로, 안면정보를 사전등록하면 출국장, 탑승구 등에서 여권, 탑승권을 꺼내지 않고 안면인식만으로 통과할 수 있어 빠르고 편리한 서비스예요.<br><br>인천공항공사는 이번 협약체결 외에도 외교부 정보연계를 통한 스마트패스 등록절차 간소화를 추진할 계획으로, 연내 절차 간소화가 완료되면 스마트패스 전용 모바일 앱(ICN SmartPass)을 통한 등록절차가 기존대비 훨씬 빠르고 간편해질 전망이에요.<br><br>인천국제공항공사 이학재 사장은 “스마트패스를 이용하면 출국 대기시간이 크게 줄어들고 공항 혼잡완화에도 도움이 되는 만큼 여객 분들의 많은 이용을 부탁드린다”며, “앞으로도 등록채널 확대 및 서비스 개선 등 스마트패스의 이용 편의성을 지속 향상시켜 나가겠다”고 말했어요.</p>
     
        <h2>Opinion.</h2>
     <p>이제 인천공항은 연말이 되면 더욱 커진 모습으로 우리에게 다가올 예정이예요, 그리고 연말이 되면 스마트패스를 통해 더욱 빠르고 쾌적하게 출국할 수 있을 예정이예요.<br><br>이제 연휴마다 보이던 길다란 출국대기줄은 더이상 볼 수 없게 될까요?<br><br>하지만 은행들의 홍보가 저조하다고 생각하고, 얼굴정보를 은행 및 공항전산망에 미리 등록해야 한다는 번거로움과 얼굴 등록에 거부감을 갖는 사람들이 있다는 것을 생각해보면, 아직까지는 공항에 미리 가는 게 더 나은 선택지가 될 것 같아요.</p>
